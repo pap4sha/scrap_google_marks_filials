@@ -1,12 +1,13 @@
 from selenium import webdriver
 import time
 from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.common.actions.wheel_input import ScrollOrigin
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-# import requests
+# from selenium.webdriver.common.wheel_input import ScrollOrigin# import requestsdef get_sourse_html(url):
 
 
-def get_sourse_html(url):
+
+
 
     driver = webdriver.Chrome(executable_path='C:/Users/tat100zmi/PycharmProjects/chrome_webdriver/chromedriver.exe')
 
@@ -16,19 +17,17 @@ def get_sourse_html(url):
         driver.get(url=url)
         time.sleep(3)
         while True:
-            find_more_element = driver.find_element(By.CLASS_NAME, "e07Vkf.kA9KIf")
+            find_more_element = driver.find_element(By.CLASS_NAME, "m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd")
             print (find_more_element)
             if driver.find_elements(By.CLASS_NAME, "HlvSq"):
 
                 with open("test.html", "w", encoding = "utf-8") as file:
                     file.write(driver.page_source)
 
-                break
-
-            else:
-                scroll_origin = ScrollOrigin.from_element(find_more_element)
-                actions2 = ActionChains(driver)
-                actions2.scroll_from_origin(find_more_element, 0, 100).perform()
+                break            else:
+                delta_y = find_more_element.rect['y']
+                # scroll_origin = ScrollOrigin.from_element(find_more_element, 0 -50)                actions2 = ActionChains(driver)
+                actions2.key_down(Keys.DOWN, find_more_element).perform()
                 time.sleep(3)
 
     except Exception as ex:
